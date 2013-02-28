@@ -81,49 +81,50 @@ public class UtilProcesamientoBinario {
 								cont++;
 						}
 					cont--;
-					
-					if (cont >= 2 && cont <= 6)
-						band ++;
-					
-					if(!matriz[i-1][j] || !matriz[i][j+1] || !matriz[i+1][j]) 
-						band++;
-					
-					if(!matriz[i][j+1] || !matriz[i+1][j] || !matriz[i][j-1]) 
-						band++;
-					
-					
-					cont = 0;
-					if (!matriz[i-1][j] && matriz[i-1][j+1])
-						cont++;
-					
-					if (!matriz[i-1][j+1] && matriz[i][j+1])
-						cont++;
-					
-					if (!matriz[i][j+1] && matriz[i+1][j+1])
-						cont++;
-					
-					if (!matriz[i+1][j+1] && matriz[i+1][j])
-						cont++;
-					
-					if (!matriz[i+1][j] && matriz[i+1][j-1])
-						cont++;
-					
-					if (!matriz[i+1][j-1] && matriz[i][j-1])
-						cont++;
-					
-					if (!matriz[i][j-1] && matriz[i-1][j-1])
-						cont++;
-					
-					if (!matriz[i-1][j-1] && matriz[i-1][j])
-						cont++;
-					if(cont == 1)
-						band ++;
 
-					esqueleto[i][j] = !(band==4);
-					
+					if (cont >= 2 && cont <= 6)
+						band++;
+
+					if (!matriz[i - 1][j] || !matriz[i][j + 1]
+							|| !matriz[i + 1][j])
+						band++;
+
+					if (!matriz[i][j + 1] || !matriz[i + 1][j]
+							|| !matriz[i][j - 1])
+						band++;
+
+					cont = 0;
+					if (!matriz[i - 1][j] && matriz[i - 1][j + 1])
+						cont++;
+
+					if (!matriz[i - 1][j + 1] && matriz[i][j + 1])
+						cont++;
+
+					if (!matriz[i][j + 1] && matriz[i + 1][j + 1])
+						cont++;
+
+					if (!matriz[i + 1][j + 1] && matriz[i + 1][j])
+						cont++;
+
+					if (!matriz[i + 1][j] && matriz[i + 1][j - 1])
+						cont++;
+
+					if (!matriz[i + 1][j - 1] && matriz[i][j - 1])
+						cont++;
+
+					if (!matriz[i][j - 1] && matriz[i - 1][j - 1])
+						cont++;
+
+					if (!matriz[i - 1][j - 1] && matriz[i - 1][j])
+						cont++;
+					if (cont == 1)
+						band++;
+
+					esqueleto[i][j] = !(band == 4);
+
 				}
 			}
-		
+
 		matriz = esqueleto;
 		esqueleto = new boolean[x][y];
 		for (int i = 0; i < x; i++)
@@ -142,48 +143,80 @@ public class UtilProcesamientoBinario {
 								cont++;
 						}
 					cont--;
-					
-					if (cont >= 2 && cont <= 6)
-						band ++;
-					
-					if(!matriz[i][j-1] || !matriz[i-1][j] || !matriz[i][j+1]) 
-						band++;
-					
-					if(!matriz[i+1][j] || !matriz[i][j-1] || !matriz[i-1][j]) 
-						band++;
-					
-					
-					cont = 0;
-					if (!matriz[i-1][j] && matriz[i-1][j+1])
-						cont++;
-					
-					if (!matriz[i-1][j+1] && matriz[i][j+1])
-						cont++;
-					
-					if (!matriz[i][j+1] && matriz[i+1][j+1])
-						cont++;
-					
-					if (!matriz[i+1][j+1] && matriz[i+1][j])
-						cont++;
-					
-					if (!matriz[i+1][j] && matriz[i+1][j-1])
-						cont++;
-					
-					if (!matriz[i+1][j-1] && matriz[i][j-1])
-						cont++;
-					
-					if (!matriz[i][j-1] && matriz[i-1][j-1])
-						cont++;
-					
-					if (!matriz[i-1][j-1] && matriz[i-1][j])
-						cont++;
-					if(cont == 1)
-						band ++;
 
-					esqueleto[i][j] = !(band==4);
-					
+					if (cont >= 2 && cont <= 6)
+						band++;
+
+					if (!matriz[i][j - 1] || !matriz[i - 1][j]
+							|| !matriz[i][j + 1])
+						band++;
+
+					if (!matriz[i + 1][j] || !matriz[i][j - 1]
+							|| !matriz[i - 1][j])
+						band++;
+
+					cont = 0;
+					if (!matriz[i - 1][j] && matriz[i - 1][j + 1])
+						cont++;
+
+					if (!matriz[i - 1][j + 1] && matriz[i][j + 1])
+						cont++;
+
+					if (!matriz[i][j + 1] && matriz[i + 1][j + 1])
+						cont++;
+
+					if (!matriz[i + 1][j + 1] && matriz[i + 1][j])
+						cont++;
+
+					if (!matriz[i + 1][j] && matriz[i + 1][j - 1])
+						cont++;
+
+					if (!matriz[i + 1][j - 1] && matriz[i][j - 1])
+						cont++;
+
+					if (!matriz[i][j - 1] && matriz[i - 1][j - 1])
+						cont++;
+
+					if (!matriz[i - 1][j - 1] && matriz[i - 1][j])
+						cont++;
+					if (cont == 1)
+						band++;
+
+					esqueleto[i][j] = !(band == 4);
+
 				}
 			}
 		return esqueleto;
+	}
+
+	public static void extraccionMinucias(boolean[][] m) {
+
+		final int x = m.length;
+		final int y = m[0].length;
+
+		for (int i = 1; i < x -1; i++)
+			for (int j = 1; j < y -1; j++) {
+				int [] dif = new int[8];
+				dif[0] = Math.abs(bToBin(m[i][j+1]) - bToBin(m[i-1][j+1])); //1_2
+				dif[1] = Math.abs(bToBin(m[i-1][j+1]) - bToBin(m[i-1][j])); //2_3
+				dif[2] = Math.abs(bToBin(m[i-1][j]) - bToBin(m[i-1][j-1])); //3_4
+				dif[3] = Math.abs(bToBin(m[i-1][j-1]) - bToBin(m[i][j-1])); //4_5
+				dif[4] = Math.abs(bToBin(m[i][j-1]) - bToBin(m[i+1][j-1])); //5_6
+				dif[5] = Math.abs(bToBin(m[i+1][j-1]) - bToBin(m[i+1][j])); //6_7
+				dif[6] = Math.abs(bToBin(m[i+1][j]) - bToBin(m[i+1][j+1])); //7_8
+				dif[7] = Math.abs(bToBin(m[i+1][j+1]) - bToBin(m[i][j+1])); //8_9
+				
+				int sum = 0;
+				for (int k = 0; k < dif.length ; k++ ){
+					sum += dif[i];
+				}
+				
+				
+			}
+
+	}
+
+	public static int bToBin(boolean b) {
+		return (b) ? 1 : 0;
 	}
 }
