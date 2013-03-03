@@ -1,5 +1,8 @@
 package org.img;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UtilProcesamientoBinario {
 	// Dilatación
 	public static boolean[][] dilatacion(boolean[][] matriz,
@@ -189,30 +192,46 @@ public class UtilProcesamientoBinario {
 		return esqueleto;
 	}
 
-	public static void extraccionMinucias(boolean[][] m) {
+	public static List<int[]> extraccionMinucias(boolean[][] m) {
 
 		final int x = m.length;
 		final int y = m[0].length;
 
-		for (int i = 1; i < x -1; i++)
-			for (int j = 1; j < y -1; j++) {
-				int [] dif = new int[8];
-				dif[0] = Math.abs(bToBin(m[i][j+1]) - bToBin(m[i-1][j+1])); //1_2
-				dif[1] = Math.abs(bToBin(m[i-1][j+1]) - bToBin(m[i-1][j])); //2_3
-				dif[2] = Math.abs(bToBin(m[i-1][j]) - bToBin(m[i-1][j-1])); //3_4
-				dif[3] = Math.abs(bToBin(m[i-1][j-1]) - bToBin(m[i][j-1])); //4_5
-				dif[4] = Math.abs(bToBin(m[i][j-1]) - bToBin(m[i+1][j-1])); //5_6
-				dif[5] = Math.abs(bToBin(m[i+1][j-1]) - bToBin(m[i+1][j])); //6_7
-				dif[6] = Math.abs(bToBin(m[i+1][j]) - bToBin(m[i+1][j+1])); //7_8
-				dif[7] = Math.abs(bToBin(m[i+1][j+1]) - bToBin(m[i][j+1])); //8_9
-				
-				int sum = 0;
-				for (int k = 0; k < dif.length ; k++ ){
-					sum += dif[i];
+		List<int[]> minucias = new ArrayList<int[]>();
+
+		for (int i = 1; i < x - 1; i++)
+			for (int j = 1; j < y - 1; j++) {
+				if (m[i][j]) {
+					
+					int[] dif = new int[8];
+					dif[0] = Math.abs(bToBin(m[i][j + 1])
+							- bToBin(m[i - 1][j + 1])); // 1_2
+					dif[1] = Math.abs(bToBin(m[i - 1][j + 1])
+							- bToBin(m[i - 1][j])); // 2_3
+					dif[2] = Math.abs(bToBin(m[i - 1][j])
+							- bToBin(m[i - 1][j - 1])); // 3_4
+					dif[3] = Math.abs(bToBin(m[i - 1][j - 1])
+							- bToBin(m[i][j - 1])); // 4_5
+					dif[4] = Math.abs(bToBin(m[i][j - 1])
+							- bToBin(m[i + 1][j - 1])); // 5_6
+					dif[5] = Math.abs(bToBin(m[i + 1][j - 1])
+							- bToBin(m[i + 1][j])); // 6_7
+					dif[6] = Math.abs(bToBin(m[i + 1][j])
+							- bToBin(m[i + 1][j + 1])); // 7_8
+					dif[7] = Math.abs(bToBin(m[i + 1][j + 1])
+							- bToBin(m[i][j + 1])); // 8_9
+
+					int sum = 0;
+					for (int k = 0; k < dif.length; k++) {
+						sum += dif[k];
+					}
+					sum = sum/2;
+					final int[] aux = {i, j, sum};
+					minucias.add(aux);
 				}
-				
-				
+
 			}
+		return minucias;
 
 	}
 

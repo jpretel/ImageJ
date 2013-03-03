@@ -1,10 +1,12 @@
 package org.main;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import org.img.ImageJ;
 import org.img.UtilImagen;
 import org.img.UtilMatriz;
+import org.img.UtilPixel;
 import org.img.UtilProcesamiento;
 import org.img.UtilProcesamientoBinario;
 
@@ -51,6 +53,10 @@ public class Main {
 		for (int i = 0; i < 60; i++) {
 			zs = UtilProcesamientoBinario.ZhangSuen(zs);
 		}
+		
+		List<int[]> minucias = UtilProcesamientoBinario.extraccionMinucias(zs);
+		
+		
 
 		/*for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < zs[0].length; j++) {
@@ -66,6 +72,46 @@ public class Main {
 		// int[][] mat = UtilProcesamiento.BooleanAPixel(dil);
 
 		int[][] mat = UtilProcesamiento.BooleanAPixel(zs);
+		
+		for (int[] min : minucias){
+			int i,j,x;
+			i = min[0];
+			j = min[1];
+			x = min[2];
+			
+			switch (x) {
+			case 0:
+				//mat[i][j] = UtilPixel.getPixel(200, 100, 100);
+				break;
+			case 1:
+				mat[i][j] = UtilPixel.getPixel(250, 200, 0);
+				mat[i][j-1] = UtilPixel.getPixel(250, 200, 0);
+				mat[i-1][j-1] = UtilPixel.getPixel(250, 200, 0);
+				mat[i-1][j] = UtilPixel.getPixel(250, 200, 0);
+				mat[i][j+1] = UtilPixel.getPixel(250, 200, 0);
+				mat[i+1][j+1] = UtilPixel.getPixel(250, 200, 0);
+				mat[i][j+1] = UtilPixel.getPixel(250, 200, 0);
+				break;
+			case 2:
+				//mat[min[0]][min[1]] = UtilPixel.getPixel(0, 200, 0);
+				break;
+			case 3:
+				mat[i][j] = UtilPixel.getPixel(0, 200, 0);
+				mat[i][j-1] = UtilPixel.getPixel(0, 200, 0);
+				mat[i-1][j-1] = UtilPixel.getPixel(0, 200, 0);
+				mat[i-1][j] = UtilPixel.getPixel(0, 200, 0);
+				mat[i][j+1] = UtilPixel.getPixel(0, 200, 0);
+				mat[i+1][j+1] = UtilPixel.getPixel(0, 200, 0);
+				mat[i][j+1] = UtilPixel.getPixel(0, 200, 0);
+			case 4:
+				/*mat[i][j] = UtilPixel.getPixel(0, 0, 200);
+				mat[i-1][j-1] = UtilPixel.getPixel(0, 0, 200);
+				mat[i+1][j+1] = UtilPixel.getPixel(0, 0, 200);*/
+				break;
+			default:
+				break;
+			}
+		}
 
 		int[] p = UtilMatriz.getVector(mat);
 
